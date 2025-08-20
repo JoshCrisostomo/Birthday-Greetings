@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link ref="stylesheet" href="/static/styles/index.css">
+  <title>Surprise! 🎉</title>
+</head>
+<body>
+  <h1>Almost There! 🎁</h1>
+  <div id="countdown" class="countdown"></div>
+  <div class="button-container" id="buttons"></div>
+
+  <script>
+    const targetDate = new Date("2025-08-20T11:15:30");  // Set your birthday date here
+
+    function updateCountdown() {
+      const now = new Date();
+      const timeLeft = targetDate - now;
+
+      if (timeLeft <= 0) {
+        // It's time! Show the buttons
+        showButtons();
+      } else {
+        const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        
+        document.getElementById('countdown').innerHTML = 
+          `Wait for ${hours} hours, ${minutes} minutes, and ${seconds} seconds!`;
+      }
+    }
+
+    function showButtons() {
+      document.getElementById('countdown').style.display = 'none'; // Hide countdown
+      const buttonContainer = document.getElementById('buttons');
+      buttonContainer.style.display = 'block'; // Show buttons
+
+      // Create 3 buttons and place them randomly
+      let buttonsClicked = 0;
+
+      for (let i = 0; i < 3; i++) {
+        const button = document.createElement('button');
+        button.innerHTML = `Click me!`;
+        button.style.position = 'absolute';
+        button.style.left = `${Math.random() * 90}%`;
+        button.style.top = `${Math.random() * 80}%`;
+
+        button.onclick = function() {
+          buttonsClicked++;
+          if (buttonsClicked === 3) {
+            window.location.href = 'birthday.html'; // Redirect to the greeting page after 3 clicks
+          }
+        };
+
+        buttonContainer.appendChild(button);
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
