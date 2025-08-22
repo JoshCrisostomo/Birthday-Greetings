@@ -1,144 +1,405 @@
-<!DOCTYPE html><html lang="en">
-<head>
-	<title>Happy Birthday Sachin</title>
-	<meta charset="UTF-8" />
-	<meta name="description" content="Happy Birthday">
-	<meta name="robots" content="index, follow" />
-    <meta name="keywords" content="Birthday, Happy">
-    <meta property="og:type" content="E-Greeting" />
-    <meta property="og:image" content="favicon.ico" />
-    <meta property="og:description" content="Wish you a very Happy Birthday">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<link rel="stylesheet" type="text/css" href="static/styles/loading.css">
-	<link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
 
-	<link rel="stylesheet/less" href="static/styles/cake.less">
-	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.1.0/less.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎉🎂</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+	<link rel="stylesheet" href="stylesheet.css">
 </head>
 
 <body>
-	<div class="loading"></div>
-  <audio class="song" controls loop>
-        <source src="hbd1.mp3"></source>
-	   Your browser isn't invited for super fun audio time.
-    </audio>
-    <div class="balloons text-center" id="b1">
-    	<h2 style="color:#F2B300;">S</h2>
-    </div>
-    <div class="balloons text-center" id="b2">
-    	<h2 style="color:#0719D4;">A</h2>
-    </div>
-	<div class="balloons text-center" id="b3">
-    	<h2 style="color:#D14D39;">C</h2>
-    </div>
-	<div class="balloons text-center" id="b4">
-    	<h2 style="color:#8FAD00;">H</h2>
-    </div>
-	<div class="balloons text-center" id="b5">
-    	<h2 style="color:#8377E4;">I</h2>
-    </div>
-	<div class="balloons text-center" id="b6">
-    	<h2 style="color:#0719D4;">N</h2>
-    </div>
-    <img src="static/assets/Balloon-Border.png" width="100%" class="balloon-border">
- 
+    <div id="app">
+        <div id="canvas-container"></div>
 
-	<div class="container">
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <div id="content">
+            <!-- Step 1: Initial Reveal -->
+            <div class="step active" id="step1">
+                <div class="emoji heart-beat">🎉</div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">Hey Beautiful</h1>
+                <p class="text-xl text-gray-700 mb-8">I made something special for you...</p>
+                <button class="btn" id="start-btn">Let's Begin</button>
+            </div>
+
+            <!-- Step 2: Birthday Message -->
+            <div class="step" id="step2">
+                <div class="emoji heart-beat">🎉</div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">Happy Birthday!</h2>
+                <p class="text-lg text-gray-700 mb-6">
+                    I don't want to get too cheesy, but on your special day, I want you to know how amazing you are. 
+                    Your presence brightens mine and everyone's world, and your laugh? It's one of those things that can lift anyone's mood instantly.
+                    You have this way of making everything feel brighter just by being you.
+                </p>
+                <button class="btn" id="next-btn-2">What makes you special?</button>
+            </div>
+
+            <!-- Step 3: Reasons You're Amazing -->
+            <div class="step" id="step3">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-gradient">Here's why you're incredible</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div class="reason-card">
+                        <div class="emoji text-3xl">✨</div>
+                        <h3 class="text-xl font-bold mb-2 text-pink-600">Your Positive Energy</h3>
+                        <p class="text-gray-700">Even though we haven't met in person, your positivity radiates through our conversations. 
+                            You've got that rare ability to make others smile and feel good!</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="emoji text-3xl">😊</div>
+                        <h3 class="text-xl font-bold mb-2 text-pink-600">Your Vibrant Spirit</h3>
+                        <p class="text-gray-700">You have this amazing way of spreading good vibes whether we're chatting or talking through voice chat. 
+                            Your energy is so contagious, it honestly makes me feel comfortable and at ease just talking with you!</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="emoji text-3xl">🌟</div>
+                        <h3 class="text-xl font-bold mb-2 text-pink-600">Your Vibe</h3>
+                        <p class="text-gray-700">You have such a special vibe that shines through. It's rare to meet someone 
+                            who can light up any space just by being themselves!</p>
+                    </div>
+                </div>
+                <button class="btn" id="next-btn-3">A Little Surprise</button>
+            </div>
+
+            <!-- Step 4: Candle Blow -->
+            <div class="step" id="step4">
+                <div class="emoji">🍰</div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">Blow The Candle!</h2>
+                <div class="container-cake">
+                    <div id="birthday-cake">
+                        <div class="cake">
+                            <div class="middle"></div>
+                            <div class="chocs"></div>
+                            <div class="top"></div>
+                        </div>
+                        <div class="candles">
+                            <div class="flame"></div>
+                            <div class="flame2"></div>
+                            <div class="flame3"></div>
+                            <div class="shadows"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <p class="text-lg text-gray-700 mb-6">
+                    Blow out the candles and make a wish, because today is all about celebrating you! Even though we're not together in person, 
+                    I hope this little virtual celebration reminds you how special you are. Here's to your amazing day and all the incredible moments ahead!
+                </p>
+                <button class="btn" id="next-btn-4">Blow the Candle</button>
+            </div>
+
+            <!-- Step 5: Final Wish -->
+            <div class="step" id="step5">
+                <div class="emoji">🎂</div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">My Birthday Wish For You</h2>
+                <p class="text-lg text-gray-700 mb-8">
+                    May your year ahead be filled with endless joy, laughter, and beautiful moments that make your heart smile. 
+                    I hope all your dreams come true, and that you always remember how incredibly special you are, not just to me, 
+                    but to everyone whose life you've touched. Your kindness, energy, and warmth make the world a better place, and 
+                    I'm so thankful to know you. Cheers to another year of making great memories and chasing your dreams!
+                </p>
+                <p class="text-xl font-semibold text-pink-600 mb-8">
+                    Happy Birthday, Cammy! 🎉
+                </p>
+                <button class="btn" id="confetti-btn">Celebrate!</button>
+                <p class="mt-8 text-gray-500">Made with ❤️ just for you</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <script>
 		
-		<div class="row">
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_yellow"></div>
-			</div>
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_red"></div>
-			</div>
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_blue"></div>
-			</div>
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_green"></div>
-			</div>
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_pink"></div>
-			</div>
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_orange"></div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12 text-center">
-				<img src="static/assets/banner.png" class="bannar">
-			</div>
-		</div>
-		<div class="row cake-cover">
-			<div class="col-md-12 texr-center">
-				<div class="cake">
-				  <div class="velas">
-				    <div class="fuego"></div>
-				    <div class="fuego"></div>
-				    <div class="fuego"></div>
-				    <div class="fuego"></div>
-				    <div class="fuego"></div>
-				  </div>
-				  <div class="cobertura"></div>
-				  <div class="bizcocho"></div>
-				</div>
-			</div>
-		</div>
-		<div class="row message">
-			<div class="col-md-12">
-				<p>Today is...</p>
-				<p>your message </p>
-				<p>I'd like to wish you one more time</p>
-				<p>a very happy birthday Sachin</p>
-				
-			</div>
-		</div>
-		<div class="navbar navbar-fixed-bottom">
-			<div class="row">
-				<div class="col-md-6 text-center col-md-offset-3">
-					<button class="btn btn-primary" id="turn_on">Turn On Lights</button>
-					<button class="btn btn-primary" id="play">Play Music</button>
-					<button class="btn btn-primary" id="bannar_coming">Let's Decorate</button>
-					<button class="btn btn-primary" id="balloons_flying">Fly With Balloons</button>
-					<button class="btn btn-primary" id="cake_fadein">Most Delicious Cake Ever</button>
-					<button class="btn btn-primary" id="light_candle"> Light Candle</button>
-					<button class="btn btn-primary" id="wish_message">Happy Birthday</button>
-					<button class="btn btn-primary" id="story">A mesage for you</button>
-					<!-- <button class="btn btn-primary" id="cake_cut">Lrt's Cut the Cake</button> -->
-				</div>
-			</div>
-			<!-- <div class="col-md-2">
-			</div>
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-2">
-			</div> -->
-		</div>
+
+        // Three.js Heart Background
+        const container = document.getElementById('canvas-container');
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 30;
+
+        // Improved Heart Geometry
+        const x = 0, y = 0;
+        const heartShape = new THREE.Shape();
+        heartShape.moveTo(x + 0.5, y + 0.5);
+        heartShape.bezierCurveTo(x + 0.5, y + 0.5, x + 1, y, x, y);
+        heartShape.bezierCurveTo(x - 1, y, x - 1, y + 1.5, x - 1, y + 1.5);
+        heartShape.bezierCurveTo(x - 1, y + 2.5, x + 0.5, y + 3.5, x + 0.5, y + 3.5);
+        heartShape.bezierCurveTo(x + 0.5, y + 3.5, x + 2, y + 2.5, x + 2, y + 1.5);
+        heartShape.bezierCurveTo(x + 2, y + 1.5, x + 2, y, x + 1, y);
+        heartShape.bezierCurveTo(x + 0.5, y, x + 0.5, y + 0.5, x + 0.5, y + 0.5);
+
+        const extrudeSettings = {
+            depth: 0.5,
+            bevelEnabled: true,
+            bevelSegments: 3,
+            bevelSize: 0.2,
+            bevelThickness: 0.3
+        };
+
+        const heartGeometry = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
+
+        // Create multiple hearts with different colors and properties
+        const hearts = [];
+        const colors = [
+            0xff6b6b, 0xff8e8e, 0xffb3b3, 0xffd8d8,
+            0xff9e9e, 0xffc1c1, 0xff6b8e, 0xff8eb3
+        ];
+
+        for (let i = 0; i < 25; i++) {
+            const material = new THREE.MeshPhongMaterial({
+                color: colors[Math.floor(Math.random() * colors.length)],
+                emissive: 0xff0000,
+                emissiveIntensity: 0.1,
+                shininess: 100,
+                transparent: true,
+                opacity: 0.9
+            });
+
+            const heart = new THREE.Mesh(heartGeometry, material);
+
+            // Random position and scale
+            heart.position.x = (Math.random() - 0.5) * 50;
+            heart.position.y = (Math.random() - 0.5) * 50;
+            heart.position.z = (Math.random() - 0.5) * 50;
+
+            const scale = Math.random() * 0.8 + 0.5;
+            heart.scale.set(scale, scale, scale);
+
+            // Random rotation
+            heart.rotation.x = Math.random() * Math.PI;
+            heart.rotation.y = Math.random() * Math.PI;
+
+            // Store animation properties
+            heart.userData = {
+                speedX: Math.random() * 0.02 - 0.01,
+                speedY: Math.random() * 0.02 - 0.01,
+                speedZ: Math.random() * 0.02 - 0.01,
+                rotationSpeedX: Math.random() * 0.01,
+                rotationSpeedY: Math.random() * 0.01,
+                originalX: heart.position.x,
+                originalY: heart.position.y,
+                originalZ: heart.position.z,
+                floatDistance: 2 + Math.random() * 3
+            };
+
+            scene.add(heart);
+            hearts.push(heart);
+        }
+
+        // Add lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Animate hearts
+            hearts.forEach(heart => {
+                // Floating animation
+                const time = Date.now() * 0.001;
+                heart.position.x = heart.userData.originalX + Math.sin(time * heart.userData.speedX * 10) * heart.userData.floatDistance;
+                heart.position.y = heart.userData.originalY + Math.sin(time * heart.userData.speedY * 10) * heart.userData.floatDistance;
+                heart.position.z = heart.userData.originalZ + Math.sin(time * heart.userData.speedZ * 10) * heart.userData.floatDistance;
+
+                // Rotation
+                heart.rotation.x += heart.userData.rotationSpeedX;
+                heart.rotation.y += heart.userData.rotationSpeedY;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Step Navigation
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        function updateProgressBar() {
+            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        function showStep(stepNumber) {
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+
+            // Show current step
+            document.getElementById(`step${stepNumber}`).classList.add('active');
+
+            // Update progress bar
+            updateProgressBar();
+
+            // Special effect for last step
+            if (stepNumber === totalSteps) {
+                document.getElementById('confetti-btn').classList.add('animate-pulse');
+            }
+        }
+
+        
+
+        // Button event listeners
+        document.getElementById('start-btn').addEventListener('click', () => {
+		const count = 2000;
+		const defaults = {
+			origin: { y: 1 }, // from bottom
+		};
+
+		function fire(angle, originX, particleRatio, opts) {
+			confetti(
+				Object.assign({}, defaults, opts, {
+					particleCount: Math.floor(count * particleRatio),
+					angle: angle,
+					origin: { x: originX, y: 1 } // bottom-left or bottom-right
+				})
+			);
+		}
+
+		fire(60, 0, 0.3, {
+			spread: 80,
+			startVelocity: 45,
+		});
+
+		fire(120, 1, 0.3, {
+			spread: 80,
+			startVelocity: 45,
+		});
+
+		fire(60, 0, 0.2, {
+			spread: 90,
+			decay: 1.5,
+			scalar: 1.2,
+		});
+
+		fire(120, 1, 0.2, {
+			spread: 90,
+			decay: 1.5,
+			scalar: 1.2,
+		});
+
+		// Move to next step
+		currentStep = 2;
+		showStep(currentStep);
+	});
 
 
-	</div>
+        document.getElementById('next-btn-2').addEventListener('click', () => {
+            currentStep = 3;
+            showStep(currentStep);
+        });
+
+        document.getElementById('next-btn-3').addEventListener('click', () => {
+            currentStep = 4;
+            showStep(currentStep);
+        });
+
+        $(document).ready(function() {
+        // When the "Blow the Candle" button is clicked
+        $("#next-btn-4").click(function() {
+            // Animate the flames blowing out
+            $(".flame").animate({"opacity": 0}, "fast");
+            $(".flame2").animate({"opacity": 0}, "fast");
+            $(".flame3").animate({"opacity": 0}, "fast");
+
+            // Change the button text to "One Last Thing"
+            $(this).text("One Last Thing");
+
+            // Now update the click event for this button to go to step 5
+            $(this).off("click").click(function() {
+                // Move to step 5
+                currentStep = 5;
+                showStep(currentStep);
+            });
+        });
+    });
+
+        
+
+        // Confetti button
+        document.getElementById('confetti-btn').addEventListener('click', () => {
+            // Standard confetti
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff0000', '#ff69b4', '#ff1493', '#ffc0cb']
+            });
+
+            // Heart-shaped confetti
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    spread: 90,
+                    origin: { y: 0.5 },
+                    shapes: ['heart'],
+                    colors: ['#ff0000', '#ff69b4']
+                });
+            }, 300);
+
+            // More hearts from different directions
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    angle: 60,
+                    spread: 75,
+                    origin: { x: 0 },
+                    shapes: ['heart'],
+                    colors: ['#ff0000', '#ff69b4']
+                });
+
+                confetti({
+                    particleCount: 10,
+                    angle: 120,
+                    spread: 75,
+                    origin: { x: 1 },
+                    shapes: ['heart'],
+                    colors: ['#ff0000', '#ff69b4']
+                });
+            }, 600);
+
+            // Make hearts float up from the background
+            hearts.forEach(heart => {
+                gsap.to(heart.position, {
+                    y: heart.position.y - 30,
+                    duration: 3,
+                    ease: "power1.out"
+                });
+
+                gsap.to(heart.material, {
+                    opacity: 0,
+                    duration: 3,
+                    ease: "power1.out"
+                });
+            });
+        });
+
+        // Initialize progress bar
+        updateProgressBar();
+    </script>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<script src="effect.js"></script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-58229732-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
 </html>

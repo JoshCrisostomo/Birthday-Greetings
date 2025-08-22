@@ -1,9 +1,23 @@
 body { 
     font-family: Arial, sans-serif; 
     text-align: center; 
-    padding: 20px; 
     margin: 0;
-    background-color: #fd0808; 
+    background: linear-gradient(135deg, #f9a8d4, #f3e8ff); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.step {
+    width: 80vh;
+    height: 50vh;
+    background: rgba(255, 255, 255, 0.509);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
 }
 
 h1 { 
@@ -21,11 +35,23 @@ h1 {
 .button-container {
     display: none;
     margin-top: 30px;
+    position: relative;
 }
 
 button {
-    padding: 15px;
-    margin: 10px;
-    font-size: 1.2rem;
+    background: linear-gradient(135deg, #ec4899, #f43f5e);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
     cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
 }

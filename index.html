@@ -7,20 +7,30 @@
   <title>Surprise! 🎉</title>
 </head>
 <body>
-  <h1>Almost There! 🎁</h1>
-  <div id="countdown" class="countdown"></div>
-  <div class="button-container" id="buttons"></div>
+  <div class="step">
+    <h1 id="heading">Almost There! 🎁</h1> <!-- Added ID here for easy access -->
+    <div id="countdown" class="countdown"></div>
+    <div class="button-container" id="buttons">
+      <p id="message">Click me to proceed for the surprise!</p>
+      <button id="surprise-button">Click me!</button>
+    </div>
+  </div>
 
   <script>
-    const targetDate = new Date("2025-08-21T10:35:30");  // Set your birthday date here
+    const targetDate = new Date("2025-08-22T21:27:30");  // Set your birthday date here
+    const button = document.getElementById('surprise-button');
+    const message = document.getElementById('message');
+    const heading = document.getElementById('heading');  // Get the heading element
+    let clickCount = 0;
 
     function updateCountdown() {
       const now = new Date();
       const timeLeft = targetDate - now;
 
       if (timeLeft <= 0) {
-        // It's time! Show the buttons
+        // It's time! Show the buttons and change the heading
         showButtons();
+        heading.textContent = "Surprise Time! 🎉";  // Change the heading
       } else {
         const hours = Math.floor(timeLeft / (1000 * 60 * 60));
         const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
@@ -36,25 +46,25 @@
       const buttonContainer = document.getElementById('buttons');
       buttonContainer.style.display = 'block'; // Show buttons
 
-      // Create 3 buttons and place them randomly
-      let buttonsClicked = 0;
+      // Add click event to the button
+      button.onclick = function() {
+        clickCount++;
 
-      for (let i = 0; i < 3; i++) {
-        const button = document.createElement('button');
-        button.innerHTML = `Click me!`;
+        // Move the button to a random position each time
         button.style.position = 'absolute';
         button.style.left = `${Math.random() * 90}%`;
         button.style.top = `${Math.random() * 80}%`;
 
-        button.onclick = function() {
-          buttonsClicked++;
-          if (buttonsClicked === 3) {
-            window.location.href = 'birthday.html'; // Redirect to the greeting page after 3 clicks
-          }
-        };
-
-        buttonContainer.appendChild(button);
-      }
+        // Change the message based on the click count
+        if (clickCount === 1) {
+          message.textContent = "Just kidding, click here!";
+        } else if (clickCount === 2) {
+          message.textContent = "No more tricks. Promise, this is it!";
+        } else if (clickCount === 3) {
+          // Redirect after the third click
+          window.location.href = 'birthday.html';
+        }
+      };
     }
 
     setInterval(updateCountdown, 1000);
