@@ -318,24 +318,62 @@
         });
 
         $(document).ready(function() {
-        // When the "Blow the Candle" button is clicked
-        $("#next-btn-4").click(function() {
-            // Animate the flames blowing out
-            $(".flame").animate({"opacity": 0}, "fast");
-            $(".flame2").animate({"opacity": 0}, "fast");
-            $(".flame3").animate({"opacity": 0}, "fast");
+    // When the "Blow the Candle" button is clicked
+    $("#next-btn-4").click(function() {
+        // Animate the flames blowing out
+        $(".flame").animate({"opacity": 0}, "fast");
+        $(".flame2").animate({"opacity": 0}, "fast");
+        $(".flame3").animate({"opacity": 0}, "fast");
 
-            // Change the button text to "One Last Thing"
-            $(this).text("One Last Thing");
+        // Trigger confetti after the candles blow out
+        const duration = 15 * 1000,
+        animationEnd = Date.now() + duration;
 
-            // Now update the click event for this button to go to step 5
-            $(this).off("click").click(function() {
-                // Move to step 5
-                currentStep = 5;
-                showStep(currentStep);
-            });
+        let skew = 1;
+
+        function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+        }
+
+        (function frame() {
+        const timeLeft = animationEnd - Date.now(),
+            ticks = Math.max(200, 500 * (timeLeft / duration));
+
+        skew = Math.max(0.8, skew - 0.001);
+
+        confetti({
+            particleCount: 2,
+            startVelocity: 0,
+            ticks: ticks,
+            origin: {
+            x: Math.random(),
+            // since particles fall down, skew start toward the top
+            y: Math.random() * skew - 0.2,
+            },
+            colors: ['#ff0000', '#ff69b4', '#ff1493', '#ffc0cb'],
+            shapes: ["circle"],
+            gravity: randomInRange(1, 1.4),
+            scalar: randomInRange(0.4, 1),
+            drift: randomInRange(-0.4, 0.4),
+        });
+
+        if (timeLeft > 0) {
+            requestAnimationFrame(frame);
+        }
+        })();
+
+        // Change the button text to "One Last Thing"
+        $(this).text("One Last Thing");
+
+        // Now update the click event for this button to go to step 5
+        $(this).off("click").click(function() {
+            // Move to step 5
+            currentStep = 5;
+            showStep(currentStep);
         });
     });
+});
+
 
         
 
@@ -352,7 +390,7 @@
             // Heart-shaped confetti
             setTimeout(() => {
                 confetti({
-                    particleCount: 100,
+                    particleCount: 1000,
                     spread: 90,
                     origin: { y: 0.5 },
                     shapes: ['heart'],
@@ -363,7 +401,7 @@
             // More hearts from different directions
             setTimeout(() => {
                 confetti({
-                    particleCount: 100,
+                    particleCount: 1000,
                     angle: 60,
                     spread: 75,
                     origin: { x: 0 },
@@ -372,7 +410,7 @@
                 });
 
                 confetti({
-                    particleCount: 10,
+                    particleCount: 1000,
                     angle: 120,
                     spread: 75,
                     origin: { x: 1 },
