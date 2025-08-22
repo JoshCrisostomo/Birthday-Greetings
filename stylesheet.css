@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    overflow-x: hidden;
     font-family: 'Inter', sans-serif;
     height: 100vh;
     touch-action: manipulation;
@@ -24,6 +25,7 @@ body {
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .step {
@@ -40,6 +42,8 @@ body {
     transform: translateY(20px);
     transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
+    overflow-y: auto;
+    max-height: calc(100vh - 40px);
 }
 
 .step.active {
@@ -155,7 +159,7 @@ body {
 
 @media (max-width: 768px) {
     .step {
-        padding: 30px;
+        padding: 2.5rem;
         max-width: 90%;
     }
 
@@ -164,7 +168,7 @@ body {
     }
 
     .btn {
-        padding: 10px 20px;
+        padding: 1vh 2vh;
         font-size: 0.95rem;
     }
 
@@ -180,7 +184,7 @@ body {
 
 @media (max-width: 480px) {
     .step {
-        padding: 20px;
+        padding: 1rem;
     }
 
     .emoji {
@@ -193,7 +197,7 @@ body {
     }
 
     .reason-card {
-        padding: 14px;
+        padding: 1.4vh;
     }
 
     #progress-container {
